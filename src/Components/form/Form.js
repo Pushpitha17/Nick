@@ -66,7 +66,7 @@ function Form() {
   const [formsubmitted, setFormsubmitted] = useState(false)
 
   const handleChange = e => {
-    setValues({ ...values, [e.target.id]: e.target.value })
+    setValues({ ...values, [e.target.name]: e.target.value })
   }
 
   const handleSubmit = async e => {
@@ -114,7 +114,7 @@ function Form() {
             <input type="hidden" name="bot-field" />
             <input type="hidden" name="form-name" value="contact" />
             <TextField
-              id="name"
+              name="name"
               label="Name"
               variant="filled"
               placeholder="Name"
@@ -123,7 +123,7 @@ function Form() {
               onChange={handleChange}
             />
             <TextField
-              id="email"
+              name="email"
               label="Email"
               variant="filled"
               placeholder="Email"
@@ -132,7 +132,7 @@ function Form() {
               error={errorStates.email}
             />
             <TextField
-              id="msg"
+              name="msg"
               label="Message"
               placeholder="Message"
               multiline
