@@ -63,6 +63,7 @@ function Form() {
 
   const [values, setValues] = useState(initialValues)
   const [errorStates, setErrorstates] = useState(initialErrostates)
+  const [formsubmitted, setFormsubmitted] = useState(false)
 
   const handleChange = e => {
     setValues({ ...values, [e.target.id]: e.target.value })
@@ -79,6 +80,7 @@ function Form() {
         body: encode({ "form-name": "contact", ...data }),
       })
       console.log()
+      setFormsubmitted(!formsubmitted)
     } catch (error) {
       setErrorstates({
         ...initialErrostates,
@@ -90,56 +92,68 @@ function Form() {
 
   return (
     <FormContainer>
-      <Heading>Please Fill out the form below for any type of inquiry.</Heading>
-      <form
-        className={matches ? classes.root : classes.mobileroot}
-        autoComplete="on"
-        onSubmit={handleSubmit}
-        name="contact"
-        method="post"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
-      >
-        <input type="hidden" name="form-name" value="contact" />
-        <TextField
-          id="name"
-          label="Name"
-          variant="filled"
-          placeholder="Name"
-          helperText={errorStates.name ? "Name is required" : ""}
-          error={errorStates.name}
-          onChange={handleChange}
-        />
-        <TextField
-          id="email"
-          label="Email"
-          variant="filled"
-          placeholder="Email"
-          onChange={handleChange}
-          helperText={errorStates.email ? "Valid email is required" : ""}
-          error={errorStates.email}
-        />
-        <TextField
-          id="msg"
-          label="Message"
-          placeholder="Message"
-          multiline
-          rows={4}
-          variant="outlined"
-          onChange={handleChange}
-          helperText={errorStates.msg ? "Message is required" : ""}
-          error={errorStates.msg}
-        />
-        <Button
-          size="medium"
-          variant="contained"
-          color="default"
-          className={classes.button}
-          type="submit"
-        >
-          SEND
-        </Button>
-      </form>
+      {formsubmitted ? (
+        <Heading style={{ textAlign: "center", lineHeight: "1.5" }}>
+          Thank you for getting in touch with me.<br></br>I will get back to you
+          soon.
+        </Heading>
+      ) : (
+        <>
+          <Heading>
+            Please Fill out the form below for any type of inquiry.
+          </Heading>
+          <form
+            className={matches ? classes.root : classes.mobileroot}
+            autoComplete="on"
+            onSubmit={handleSubmit}
+            name="contact"
+            method="post"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+          >
+            <input type="hidden" name="bot-field" />
+            <input type="hidden" name="form-name" value="contact" />
+            <TextField
+              id="name"
+              label="Name"
+              variant="filled"
+              placeholder="Name"
+              helperText={errorStates.name ? "Name is required" : ""}
+              error={errorStates.name}
+              onChange={handleChange}
+            />
+            <TextField
+              id="email"
+              label="Email"
+              variant="filled"
+              placeholder="Email"
+              onChange={handleChange}
+              helperText={errorStates.email ? "Valid email is required" : ""}
+              error={errorStates.email}
+            />
+            <TextField
+              id="msg"
+              label="Message"
+              placeholder="Message"
+              multiline
+              rows={4}
+              variant="outlined"
+              onChange={handleChange}
+              helperText={errorStates.msg ? "Message is required" : ""}
+              error={errorStates.msg}
+            />
+            <Button
+              size="medium"
+              variant="contained"
+              color="default"
+              className={classes.button}
+              type="submit"
+            >
+              SEND
+            </Button>
+          </form>
+        </>
+      )}
     </FormContainer>
   )
 }
