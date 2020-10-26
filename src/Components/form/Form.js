@@ -1,9 +1,10 @@
-import React from "react"
+import React, { useState } from "react"
 import TextField from "@material-ui/core/TextField"
 import { makeStyles } from "@material-ui/core/styles"
 import { FormContainer, Heading } from "./FormElements"
 import Button from "@material-ui/core/Button"
 import useMediaQuery from "@material-ui/core/useMediaQuery"
+import * as yup from "yup"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,23 +30,94 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
+const initialValues = {
+  name: "",
+  email: "",
+  msg: "",
+}
+
+let schema = yup.object().shape({
+  msg: yup.string().required(),
+  email: yup.string().email().required(),
+  name: yup.string().required(),
+  date: yup.string().default(() => {
+    return new Date(Date.now()).toDateString()
+  }),
+})
+
+const initialErrostates = {
+  name: false,
+  email: false,
+  msg: false,
+}
+
+const encode = data => {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&")
+}
+
 function Form() {
   const classes = useStyles()
   const matches = useMediaQuery("(min-width:640px)")
+
+  const [values, setValues] = useState(initialValues)
+  const [errorStates, setErrorstates] = useState(initialErrostates)
+
+  const handleChange = e => {
+    setValues({ ...values, [e.target.id]: e.target.value })
+  }
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+    let data = schema.cast({ ...values })
+    try {
+      await schema.validate(data)
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({ "form-name": "contact", ...data }),
+      })
+      console.log()
+    } catch (error) {
+      setErrorstates({
+        ...initialErrostates,
+        [error.errors[0].split(" ")[0]]: true,
+      })
+      console.log(error)
+    }
+  }
+
   return (
     <FormContainer>
       <Heading>Please Fill out the form below for any type of inquiry.</Heading>
       <form
         className={matches ? classes.root : classes.mobileroot}
-        noValidate
-        autoComplete="off"
+        autoComplete="on"
+        onSubmit={handleSubmit}
+        name="contact"
+        method="post"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
       >
-        <TextField id="name" label="Name" variant="filled" placeholder="Name" />
+        <input type="hidden" name="form-name" value="contact" />
+        <TextField
+          id="name"
+          label="Name"
+          variant="filled"
+          placeholder="Name"
+          helperText={errorStates.name ? "Name is required" : ""}
+          error={errorStates.name}
+          onChange={handleChange}
+        />
         <TextField
           id="email"
           label="Email"
           variant="filled"
           placeholder="Email"
+          onChange={handleChange}
+          helperText={errorStates.email ? "Valid email is required" : ""}
+          error={errorStates.email}
         />
         <TextField
           id="msg"
@@ -54,12 +126,16 @@ function Form() {
           multiline
           rows={4}
           variant="outlined"
+          onChange={handleChange}
+          helperText={errorStates.msg ? "Message is required" : ""}
+          error={errorStates.msg}
         />
         <Button
           size="medium"
           variant="contained"
-          color="grey"
+          color="default"
           className={classes.button}
+          type="submit"
         >
           SEND
         </Button>

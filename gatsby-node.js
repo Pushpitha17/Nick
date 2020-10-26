@@ -1,8 +1,9 @@
 const fetch = require("node-fetch")
 const path = require("path")
+require("dotenv").config()
 
-const API_KEY = "AIzaSyDZK00lowQV_ar2FQ6W2UcrwOWEwaU4ruk"
-const Channel_Id = "UCC5NPVVnatGWNSZq36e-EZQ"
+const API_KEY = process.env.API_KEY
+const Channel_Id = process.env.CHANNEL_ID
 const fetchdata = async () => {
   const fetchPlaylistId = await (
     await fetch(
