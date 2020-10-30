@@ -16,22 +16,25 @@ function Footer() {
       <FooterContainer>
         <FooterLinks>
           <IconContext.Provider value={{ color: "#34495e", size: 20 }}>
-            <FooterLink to="/">
+            <FooterLink href="#" target="_blank">
               <FooterLinkContainer>
                 <AiFillInstagram></AiFillInstagram>
               </FooterLinkContainer>
             </FooterLink>
-            <FooterLink to="/">
+            <FooterLink
+              href="https://www.youtube.com/channel/UCC5NPVVnatGWNSZq36e-EZQ"
+              target="_blank"
+            >
               <FooterLinkContainer>
                 <AiFillYoutube></AiFillYoutube>
               </FooterLinkContainer>
             </FooterLink>
-            <FooterLink to="/">
+            <FooterLink href="#" target="_blank">
               <FooterLinkContainer>
                 <FaSoundcloud></FaSoundcloud>
               </FooterLinkContainer>
             </FooterLink>
-            <FooterLink to="/">
+            <FooterLink href="#" target="_blank">
               <FooterLinkContainer>
                 <FaFacebookF></FaFacebookF>
               </FooterLinkContainer>

@@ -3,6 +3,7 @@ import Footer from "../Components/footer/Footer"
 import { Layout } from "../Components/Layout/Layout"
 import { Video, VideoContainer } from "../Components/music/VideoElements"
 import { Navbar } from "../Components/Navbar/Navbar"
+import { PageHeader } from "../Components/pageHeader"
 
 function musicTemplate({ pageContext: { data } }) {
   console.log(data)
@@ -10,6 +11,7 @@ function musicTemplate({ pageContext: { data } }) {
     <Layout fullpage={false}>
       <Navbar></Navbar>
       <VideoContainer>
+        <PageHeader>Music</PageHeader>
         {data.map((item, index) => (
           <Video key={index}>
             <iframe

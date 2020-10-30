@@ -78,7 +78,8 @@ export const NavLinks = styled(Link)`
   height: 100%;
   color: #ecf0f1;
   text-transform: uppercase;
-  font-family: "Ubuntu", sans-serif;
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 600;
   font-size: 1.2rem;
 
   @media screen and (max-width: 960px) {

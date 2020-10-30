@@ -1,18 +1,17 @@
 import React from "react"
-import Footer from "../Components/footer/Footer"
 import { Layout } from "../Components/Layout/Layout"
 import { Navbar } from "../Components/Navbar/Navbar"
-import Home from "../Components/Home/Home"
-import "../css/main.css"
+import Footer from "../Components/footer/Footer"
+import About from "../Components/about/About"
 
-function index() {
+function about() {
   return (
     <Layout fullpage={true}>
       <Navbar></Navbar>
-      <Home></Home>
+      <About></About>
       <Footer></Footer>
     </Layout>
   )
 }
 
-export default index
+export default about

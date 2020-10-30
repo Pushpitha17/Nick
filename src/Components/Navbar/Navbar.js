@@ -31,7 +31,7 @@ export const Navbar = () => {
           </IconContext.Provider>
           <NavMenu onClick={handleclick} click={click}>
             <NavItem>
-              <NavLinks to="/"> About </NavLinks>
+              <NavLinks to="/about"> About </NavLinks>
             </NavItem>
             <NavItem>
               <NavLinks to="/music"> Music </NavLinks>

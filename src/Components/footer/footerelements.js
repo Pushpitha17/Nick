@@ -15,7 +15,7 @@ export const FooterLinks = styled.ul`
   justify-content: center;
 `
 
-export const FooterLink = styled(Link)`
+export const FooterLink = styled.a`
   color: #7f8c8d;
   margin: 0 12px;
 `
