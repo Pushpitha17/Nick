@@ -7,4 +7,8 @@ export const Text = styled.p`
   font-size: 1.2rem;
   text-align: center;
   margin: 50px auto;
+
+  @media screen and (max-width: 960px) {
+    max-width: 90%;
+  }
 `
