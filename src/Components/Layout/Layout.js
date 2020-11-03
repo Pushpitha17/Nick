@@ -8,7 +8,7 @@ export const Layout = ({ children, fullpage }) => {
     query {
       file(relativePath: { eq: "greybg.jpg" }) {
         childImageSharp {
-          fluid {
+          fluid(maxWidth: 3080, quality: 90) {
             ...GatsbyImageSharpFluid_withWebp
           }
         }
